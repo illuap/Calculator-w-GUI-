@@ -22,21 +22,37 @@ class NumDisplay(Widget):
         self.digits += 1
         self.equation += str(x)
         print (self.digits)
-        
-        
-    def addNumber(self):
+    def addZero(self, count):
+        for x in range(count):
+            self.number = self.number*10
+            self.digits += 1
+            self.equation += "0"
+        print (self.digits)    
+    def setOperation(self,sign):
         self.doOperation(self.checkOperation())
-        self.changeSign("+")
-    def subNumber(self):
-        self.doOperation(self.checkOperation())
-        self.changeSign("-")
+        self.changeSign(sign)
     def equalNumber(self):
         self.doOperation(self.checkOperation())
         self.changeSign(" =")
         self.answer2 = self.answer
         self.equation2 = self.equation +" "+ str(self.answer)
         self.equation = ""
-
+    def recallNumber(self):
+        for x in str(self.answer2):
+                self.digits += 1
+        self.number = int(self.number*math.pow(10,self.digits))
+        self.number += self.answer2
+        self.equation += str(self.answer2)
+        return self.answer2
+    def backSpace(self):
+        if (type(self.number) is int or type(self.number) is long):
+            print("IT IS AN INT/LONG" + str(self.number))
+            self.number -= self.number % 10
+            self.number = self.number/10
+            self.equation = self.equation[:-1]
+        else:
+            print("SPEICAL CASE")
+            self.number = float(str(self.number)[:-1])
     #number turns to 0 
             #therefore digits in number is 0
 
@@ -50,7 +66,7 @@ class NumDisplay(Widget):
             self.number = 0
             self.digits = 0
         ##SUBSTITUDE
-        elif(x == "x"):
+        elif(x == "*"):
             self.answer *= self.number
             self.number = 0
             self.digits = 0
@@ -92,10 +108,3 @@ class NumDisplay(Widget):
         self.equation += type + " "+ str(x) + " " 
         self.equation += "="
 
-    def recallAnswer(self):
-        for x in str(self.answer2):
-                self.digits += 1
-        self.number = int(self.number*math.pow(10,self.digits))
-        self.number += self.answer2
-        self.equation += str(self.answer2)
-        return self.answer2

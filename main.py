@@ -48,6 +48,10 @@ class MyApp(App):
                 num.clickNum(8)
             elif instance.text == "9":
                 num.clickNum(9)
+            elif instance.text == "0":
+                num.addZero(1)
+            elif instance.text == "00":
+                num.addZero(2)
 
         btn1 = Button(text='1')
         btn2 = Button(text='2')
@@ -58,7 +62,9 @@ class MyApp(App):
         btn7 = Button(text='7')
         btn8 = Button(text='8')
         btn9 = Button(text='9')
-
+        btn0 = Button(text='0')
+        btn00 = Button(text='00')
+        btnDot= Button(text='.')
 
 
         btn1.bind(on_press=callback)
@@ -70,6 +76,9 @@ class MyApp(App):
         btn7.bind(on_press=callback)
         btn8.bind(on_press=callback)
         btn9.bind(on_press=callback)
+        btn0.bind(on_press=callback)
+        btn00.bind(on_press=callback)
+        btnDot.bind(on_press=callback)
         # ------------------------------------------------------------
 
 
@@ -78,7 +87,7 @@ class MyApp(App):
         # ===================
         def add(instance):
             print("Adding ", num.number," to ", num.answer )
-            num.addNumber()
+            num.setOperation("+")
 
         btnAdd = Button(text='+', size_hint_x=None, width=150)
         btnAdd.bind(on_press=add)
@@ -89,7 +98,7 @@ class MyApp(App):
         # ===================
         def sub(instance):
             print("Subtracting" , num.number," from ", num.answer )
-            num.subNumber()
+            num.setOperation("-")
 
         btnSub = Button(text='-', size_hint_x=None, width=150)
         btnSub.bind(on_press=sub)
@@ -99,30 +108,30 @@ class MyApp(App):
         # ========================
         # === Multiply BUTTON  ===
         # ========================
-        def sub(instance):
-            print("Subtracting" , num.number," from ", num.answer )
-            num.subNumber()
+        def mult(instance):
+            print("Multiplying" )
+            num.setOperation("*")
 
         btnMult = Button(text='*')
-        btnMult.bind(on_press=sub)
+        btnMult.bind(on_press=mult)
         # ------------------------------------------------------------
 
         # ======================
         # === Divide BUTTON  ===
         # ======================
-        def sub(instance):
-            print("Subtracting" , num.number," from ", num.answer )
-            num.subNumber()
+        def div(instance):
+            print("DIviding" )
+            num.setOperation("/")
 
         btnDiv = Button(text='/')
-        btnDiv.bind(on_press=sub)
+        btnDiv.bind(on_press=div)
         # ------------------------------------------------------------
 
         # ======================
         # === Recall BUTTON  ===
         # ======================
         def recall(instance):
-            print(num.recallAnswer())
+            print(num.recallNumber())
 
         btnRecall = Button(text='Recall')
         btnRecall.bind(on_press=recall)
@@ -131,12 +140,12 @@ class MyApp(App):
         # =========================
         # === BackSpace BUTTON  ===
         # =========================
-        def sub(instance):
-            print("Subtracting" , num.number," from ", num.answer )
-            num.subNumber()
+        def bkSpace(instance):
+            print("ERASING A NUMBER" )
+            num.backSpace()
 
         btnBkS = Button(text='<-', size_hint_x=None, width=150)
-        btnBkS.bind(on_press=sub)
+        btnBkS.bind(on_press=bkSpace)
         # ------------------------------------------------------------
 
         # =====================
@@ -172,6 +181,9 @@ class MyApp(App):
         buttonLayout.add_widget(btn8)
         buttonLayout.add_widget(btn9)
         buttonLayout.add_widget(btnEnter)
+        buttonLayout.add_widget(btn0)
+        buttonLayout.add_widget(btn00)
+        buttonLayout.add_widget(btnDot)
         
         mainLayout.add_widget(buttonLayout)
 
