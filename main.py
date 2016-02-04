@@ -5,26 +5,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.app import App
 from kivy.properties import NumericProperty, ReferenceListProperty,\
-    ObjectProperty
+    ObjectProperty,StringProperty
+
+from NumDisplay import NumDisplay
 
 class RootWidget(Widget):
 
     pass
-
-class NumDisplay(Widget):
-    number = NumericProperty(0)
-    number2 = NumericProperty(0)
-    def clickNum(self, x):
-        self.number = self.number*10
-        self.number += x
-    def addNumber(self):
-        self.number2 += self.number
-        self.number = 0
-    def subNumber(self):
-        self.number2 -= self.number
-        self.number = 0
     
-
 class MyApp(App):
 
 
@@ -34,8 +22,14 @@ class MyApp(App):
         mainLayout = BoxLayout(orientation = 'vertical')
         mainLayout.add_widget(num)
         
+
+
+        # =======================
+        # === NUMBER BUTTONS  ===
+        # =======================
         def callback(instance):
             print('Button <%s> is being pressed' % instance.text)
+            print("number: <%s> || answer: <%s>" % (num.number,num.answer))
             if instance.text == "1":
                 num.clickNum(1)
             elif instance.text == "2":
@@ -76,25 +70,96 @@ class MyApp(App):
         btn7.bind(on_press=callback)
         btn8.bind(on_press=callback)
         btn9.bind(on_press=callback)
+        # ------------------------------------------------------------
 
 
+        # ===================
+        # === ADD BUTTON  ===
+        # ===================
         def add(instance):
-            print("Adding ", num.number," to ", num.number2 )
+            print("Adding ", num.number," to ", num.answer )
             num.addNumber()
 
         btnAdd = Button(text='+', size_hint_x=None, width=150)
         btnAdd.bind(on_press=add)
+        # ------------------------------------------------------------
 
-
+        # ===================
+        # === SUB BUTTON  ===
+        # ===================
         def sub(instance):
-            print("Subtracting" , num.number," from ", num.number2 )
+            print("Subtracting" , num.number," from ", num.answer )
             num.subNumber()
 
         btnSub = Button(text='-', size_hint_x=None, width=150)
         btnSub.bind(on_press=sub)
+        # ------------------------------------------------------------
 
 
+        # ========================
+        # === Multiply BUTTON  ===
+        # ========================
+        def sub(instance):
+            print("Subtracting" , num.number," from ", num.answer )
+            num.subNumber()
+
+        btnMult = Button(text='*')
+        btnMult.bind(on_press=sub)
+        # ------------------------------------------------------------
+
+        # ======================
+        # === Divide BUTTON  ===
+        # ======================
+        def sub(instance):
+            print("Subtracting" , num.number," from ", num.answer )
+            num.subNumber()
+
+        btnDiv = Button(text='/')
+        btnDiv.bind(on_press=sub)
+        # ------------------------------------------------------------
+
+        # ======================
+        # === Recall BUTTON  ===
+        # ======================
+        def recall(instance):
+            print(num.recallAnswer())
+
+        btnRecall = Button(text='Recall')
+        btnRecall.bind(on_press=recall)
+        # ------------------------------------------------------------
+
+        # =========================
+        # === BackSpace BUTTON  ===
+        # =========================
+        def sub(instance):
+            print("Subtracting" , num.number," from ", num.answer )
+            num.subNumber()
+
+        btnBkS = Button(text='<-', size_hint_x=None, width=150)
+        btnBkS.bind(on_press=sub)
+        # ------------------------------------------------------------
+
+        # =====================
+        # === ENTER BUTTON  ===
+        # =====================
+        def enter(instance):
+            print("enter was pressed")
+            num.equalNumber();
+        btnEnter = Button(text='Enter', size_hint_x=None, width=150)
+        btnEnter.bind(on_press=enter)
+        # ------------------------------------------------------------
+
+
+
+
+        # ===================
+        # ===   LAYOUT    ===
+        # ===================   
         buttonLayout = GridLayout(cols = 4)
+        buttonLayout.add_widget(btnMult)
+        buttonLayout.add_widget(btnDiv)
+        buttonLayout.add_widget(btnRecall)
+        buttonLayout.add_widget(btnBkS)
         buttonLayout.add_widget(btn1)
         buttonLayout.add_widget(btn2)
         buttonLayout.add_widget(btn3)
@@ -106,7 +171,7 @@ class MyApp(App):
         buttonLayout.add_widget(btn7)
         buttonLayout.add_widget(btn8)
         buttonLayout.add_widget(btn9)
-        buttonLayout.add_widget(Button(text='Enter', size_hint_x=None, width=150))
+        buttonLayout.add_widget(btnEnter)
         
         mainLayout.add_widget(buttonLayout)
 
