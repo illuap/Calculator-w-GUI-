@@ -74,6 +74,9 @@ class NumDisplay(Widget):
             self.answer /= self.number
             self.number = 0
             self.digits = 0
+        elif(self.answer2 != 0):
+            self.number = 0
+            self.digits = 0
         #if there is no sign (the start)
         else:
             self.answer = self.number
