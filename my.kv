@@ -1,15 +1,8 @@
 <NumDisplay>:
-	canvas:
-
-		Rectangle:
-			size: root.width, root.height+2
-			pos: 0,0
-
-		#Rectangle:
-		#	size: root.width, root.height
-		#	pos: 0,root.height
-
-			
+    canvas:
+        Rectangle:
+            pos: 0, 0
+            size: 10, self.height+2
 	Label:
 		text: str(root.number)
 		pos: (root.width/2, root.height*1.5+100)
@@ -18,7 +11,7 @@
 		font_size: 30
 	Label:
 		text: str(root.answer)
-		pos: (root.width/2, root.height*1.5)
+		pos_hint: {'x':0,'top':1}
 		color: (1, 1, 1, 0.8)
     	text_size: root.size
 		font_size: 24
@@ -34,7 +27,11 @@
 		color: (1, 1, 1, 0.4)
     	text_size: root.size
 		font_size: 15
-
-
+	Label:
+		text: "lol"
+		center_x: root.width / 4
+		top: root.top - 50
+		color: (1, 0, 1, 0.4)
+    	text_size: root.size
+		font_size: 15
 <MyApp>:
-	

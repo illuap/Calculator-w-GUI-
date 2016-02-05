@@ -1,6 +1,7 @@
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.app import App
@@ -12,15 +13,34 @@ from NumDisplay import NumDisplay
 class RootWidget(Widget):
 
     pass
-    
+
+class SideMenu(Widget):
+    pass
+
 class MyApp(App):
 
 
     def build(self):
+        layout = GridLayout(cols=1, spacing=5, size_hint_y=None)
+        layout.bind(minimum_height=layout.setter('height'))
+        for i in range(30):
+            btnlol = Button(text=str(i), size_hint_y=None, height=50)
+            layout.add_widget(btnlol)
+        root = ScrollView(size_hint=(1, 1))
+        
+        root.add_widget(layout)
+
+
+
+
+
         num = NumDisplay()
 
+        upperLayout = BoxLayout(orientation = 'horizontal')
+        upperLayout.add_widget(num)
+        upperLayout.add_widget(root)
         mainLayout = BoxLayout(orientation = 'vertical')
-        mainLayout.add_widget(num)
+        mainLayout.add_widget(upperLayout)
         
 
 
@@ -184,7 +204,6 @@ class MyApp(App):
         buttonLayout.add_widget(btn0)
         buttonLayout.add_widget(btn00)
         buttonLayout.add_widget(btnDot)
-        
         mainLayout.add_widget(buttonLayout)
 
         return mainLayout
